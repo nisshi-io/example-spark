@@ -2,15 +2,15 @@
 This repository showcases examples of structured data published to schema-backed topics, instantly accessible as [Apache Iceberg tables](https://iceberg.apache.org) via [Apache Spark](https://spark.apache.org)
 
 Prerequisites:
-- **[docker](https://www.docker.com)**, using [compose.yaml](compose.yaml) running [Tansu](https://tansu.io), [Apache Spark](https://spark.apache.org), [MinIO](https://min.io) and an [Apache Iceberg REST Catalog](https://iceberg.apache.org/terms/#decoupling-using-the-rest-catalog)
+- **[docker](https://www.docker.com)**, using [compose.yaml](compose.yaml) running [Nisshi](https://nisshi.io), [Apache Spark](https://spark.apache.org), [MinIO](https://min.io) and an [Apache Iceberg REST Catalog](https://iceberg.apache.org/terms/#decoupling-using-the-rest-catalog)
 - **[just](https://github.com/casey/just)**, a handy way to save and run project-specific commands
 
-The [justfile](./justfile) contains recipes to run [MinIO](https://min.io), create the buckets, an Apache Iceberg REST catalog and [Apache Spark](https://spark.apache.org) with [Tansu](https://tansu.io).
+The [justfile](./justfile) contains recipes to run [MinIO](https://min.io), create the buckets, an Apache Iceberg REST catalog and [Apache Spark](https://spark.apache.org) with [Nisshi](https://nisshi.io).
 
 Once you have the prerequisites installed, clone this repository and start everything up with:
 
 ```shell
-git clone git@github.com:tansu-io/example-spark.git
+git clone https://github.com/nisshi-io/example-spark.git
 cd example-spark
 just up
 ```
@@ -23,12 +23,12 @@ Should result in:
  ✔ Container example-spark-minio-1
 The cluster 'local' is ready
 Added `local` successfully.
-Bucket created successfully `local/tansu`.
+Bucket created successfully `local/nisshi`.
 Bucket created successfully `local/lake`.
  ✔ Container example-spark-minio-1
  ✔ Container example-spark-iceberg-catalog-1
  ✔ Container example-spark-spark-1
- ✔ Container example-spark-tansu-1
+ ✔ Container example-spark-nisshi-1
  ```
 
 Done! You can now run the examples.
@@ -86,13 +86,13 @@ just spark-sql
 Query:
 
 ```sql
-select * from tansu.employee;
+select * from nisshi.employee;
 ```
 
 With output:
 
 ```text
-spark-sql ()> select * from tansu.employee;
+spark-sql ()> select * from nisshi.employee;
 {"partition":0,"timestamp":2025-05-31 09:44:11.566,"year":2025,"month":5,"day":31}	{"id":12321}	{"name":"Bob","email":"bob@example.com"}
 {"partition":0,"timestamp":2025-05-31 09:44:11.566,"year":2025,"month":5,"day":31}	{"id":32123}	{"name":"Alice","email":"alice@example.com"}
 ```
@@ -170,13 +170,13 @@ just spark-sql
 Query:
 
 ```sql
-select * from tansu.grade;
+select * from nisshi.grade;
 ```
 
 With output:
 
 ```text
-spark-sql ()> select * from tansu.grade;
+spark-sql ()> select * from nisshi.grade;
 {"day":31,"month":5,"partition":0,"timestamp":"2025-05-31T09:48:27.733+00:00","year":2025}	123-45-6789	{"final":49.0,"first":"Aloysius","grade":"D-","last":"Alfalfa","test1":40.0,"test2":90.0,"test3":100.0,"test4":83.0}
 {"day":31,"month":5,"partition":0,"timestamp":"2025-05-31T09:48:27.733+00:00","year":2025}	123-12-1234	{"final":48.0,"first":"University","grade":"D+","last":"Alfred","test1":41.0,"test2":97.0,"test3":96.0,"test4":97.0}
 {"day":31,"month":5,"partition":0,"timestamp":"2025-05-31T09:48:27.733+00:00","year":2025}	567-89-0123	{"final":44.0,"first":"Gramma","grade":"C","last":"Gerty","test1":41.0,"test2":80.0,"test3":60.0,"test4":40.0}
@@ -250,13 +250,13 @@ just spark-sql
 Query:
 
 ```sql
-select * from tansu.observation;
+select * from nisshi.observation;
 ```
 
 With output:
 
 ```text
-spark-sql ()> select * from tansu.observation;
+spark-sql ()> select * from nisshi.observation;
 1e44d9c2-5e7a-443b-bf10-2b1e5fd72f15	{"amount":23.2,"unit":"CELSIUS"}	{"partition":0,"timestamp":2025-05-31 09:49:29.28,"year":2025,"month":5,"day":31}
 1e44d9c2-5e7a-443b-bf10-2b1e5fd72f15	{"amount":1027.0,"unit":"MILLIBAR"}	{"partition":0,"timestamp":2025-05-31 09:49:29.28,"year":2025,"month":5,"day":31}
 1e44d9c2-5e7a-443b-bf10-2b1e5fd72f15	{"amount":22.8,"unit":"CELSIUS"}	{"partition":0,"timestamp":2025-05-31 09:49:29.28,"year":2025,"month":5,"day":31}
@@ -337,13 +337,13 @@ just spark-sql
 Query:
 
 ```sql
-select * from tansu.person;
+select * from nisshi.person;
 ```
 
 With output:
 
 ```text
-spark-sql ()> select * from tansu.person;
+spark-sql ()> select * from nisshi.person;
 {"day":31,"month":5,"partition":0,"timestamp":"2025-05-31T09:50:13.115+00:00","year":2025}	123-45-6789	{"age":21,"firstName":"Aloysius","lastName":"Alfalfa"}
 {"day":31,"month":5,"partition":0,"timestamp":"2025-05-31T09:50:13.115+00:00","year":2025}	123-12-1234	{"age":52,"firstName":"University","lastName":"Alfred"}
 {"day":31,"month":5,"partition":0,"timestamp":"2025-05-31T09:50:13.115+00:00","year":2025}	567-89-0123	{"age":35,"firstName":"Gamma","lastName":"Gerty"}
@@ -424,13 +424,13 @@ just spark-sql
 Query:
 
 ```sql
-select * from tansu.search;
+select * from nisshi.search;
 ```
 
 With output:
 
 ```text
-spark-sql ()> select * from tansu.search;
+spark-sql ()> select * from nisshi.search;
 {"partition":0,"timestamp":2025-05-31 09:50:57.027,"year":2025,"month":5,"day":31}	{"query":"abc/def","page_number":6,"results_per_page":13,"corpus":2}
 ```
 
@@ -493,13 +493,13 @@ just spark-sql
 Query:
 
 ```sql
-select * from tansu.taxi;
+select * from nisshi.taxi;
 ```
 
 With output:
 
 ```text
-spark-sql ()> select * from tansu.taxi;
+spark-sql ()> select * from nisshi.taxi;
 {"partition":0,"timestamp":2025-05-31 09:51:50.985,"year":2025,"month":5,"day":31}	{"vendor_id":1,"trip_id":1000371,"trip_distance":1.8,"fare_amount":15.32,"store_and_fwd":0}
 {"partition":0,"timestamp":2025-05-31 09:51:50.985,"year":2025,"month":5,"day":31}	{"vendor_id":2,"trip_id":1000372,"trip_distance":2.5,"fare_amount":22.15,"store_and_fwd":0}
 {"partition":0,"timestamp":2025-05-31 09:51:50.985,"year":2025,"month":5,"day":31}	{"vendor_id":2,"trip_id":1000373,"trip_distance":0.9,"fare_amount":9.01,"store_and_fwd":0}
